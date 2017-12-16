@@ -1,5 +1,7 @@
-#Inspirade by https://blog.hartleybrody.com/fb-messenger-bot/
-
+#Inspirade by:
+#   http://flask.pocoo.org/docs/0.12/quickstart/
+#   https://blog.hartleybrody.com/fb-messenger-bot/
+import os
 import requests
 from flask import Flask, request
 app = Flask(__name__)
