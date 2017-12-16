@@ -8,56 +8,32 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
-
 @app.route('/', methods=['GET'])
 def verify():
-    # when the endpoint is registered as a webhook, it must echo back
-    # the 'hub.challenge' value it receives in the query arguments
-    if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
-        if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
-            return "Verification token mismatch", 403
-        return request.args["hub.challenge"], 200
-
+    if request.args["hub.mode"] == "subscribe" and request.args["hub.challenge"]:
+        if request.args["hub.verify_token"] == os.environ["VERIFY_TOKEN"]:
+            return request.args["hub.challenge"], 200
+        return "Verification token mismatch", 403
     return "Hello world", 200
-
 
 @app.route('/', methods=['POST'])
 def webhook():
-
-    # endpoint for processing incoming messaging events
-
     data = request.get_json()
-    log(data)  # you may not want to log every incoming message in production, but it's good for testing
-
+    log(data)
     if data["object"] == "page":
-
         for entry in data["entry"]:
             for messaging_event in entry["messaging"]:
-
-                if messaging_event.get("message"):  # someone sent us a message
-
-                    sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
-                    recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"]["text"]  # the message's text
-
-                    send_message(sender_id, "oi sumido")
-
-                if messaging_event.get("delivery"):  # delivery confirmation
-                    pass
-
-                if messaging_event.get("optin"):  # optin confirmation
-                    pass
-
-                if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
-                    pass
-
+                if messaging_event["message"]:
+                    handle_message(messaging_event)
     return "ok", 200
 
+def handle_message(event):
+    sender_id = event["sender"]["id"]
+    message_text = event["message"]["text"]
+    send_message(sender_id, message_text)
 
 def send_message(recipient_id, message_text):
-
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
-
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
@@ -77,15 +53,13 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
-
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     try:
         if type(msg) is dict:
             msg = json.dumps(msg)
         else:
             msg = msg.format(*args, **kwargs)
-        log_line = u"{}: {}".format(datetime.now(), msg)
-        print(log_line)
+        print(msg)
     except UnicodeEncodeError:
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()
