@@ -9,6 +9,6 @@ def interpret(sender, message):
     tagged_words = nltk.pos_tag(tokens)
     answer = []
     for word, tag in tagged_words:
-        if (tag.startswith('N')):
+        if (tag.startswith('NN')):
             answer.append(word)
     return ' ou '.join(answer) + '?'
