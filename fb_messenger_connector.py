@@ -1,3 +1,10 @@
+"""
+Inspirade by:
+    http://flask.pocoo.org/docs/0.12/testing/
+    https://blog.hartleybrody.com/fb-messenger-bot/
+"""
+
+
 import os
 import sys
 import json
