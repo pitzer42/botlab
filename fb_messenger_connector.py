@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-import interpreter
+from interpreter import interpret
 
 import requests
 from flask import Flask, request
@@ -32,7 +32,7 @@ def on_message_receive():
 def handle_message(event):
     sender_id = event["sender"]["id"]
     message_text = event["message"]["text"]
-    answer = interpreter(sender_id, message_text)
+    answer = interpret(sender_id, message_text)
     send_message(sender_id, answer)
 
 def send_message(recipient_id, message_text):

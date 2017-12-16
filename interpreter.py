@@ -1,2 +1,2 @@
-def interpreter(sender, message):
+def interpret(sender, message):
     return message
