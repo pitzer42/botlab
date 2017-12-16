@@ -1,15 +1,16 @@
 import os
 import sys
 import json
-from datetime import datetime
 
 import requests
 from flask import Flask, request
 
 app = Flask(__name__)
 
+REPLY_ENDPOINT = "https://graph.facebook.com/v2.6/me/messages"
+
 @app.route('/', methods=['GET'])
-def verify():
+def verify_token():
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return request.args["hub.challenge"], 200
@@ -17,7 +18,7 @@ def verify():
     return "Hello world", 200
 
 @app.route('/', methods=['POST'])
-def webhook():
+def on_message_receive():
     data = request.get_json()
     log(data)
     if data["object"] == "page":
@@ -33,7 +34,7 @@ def handle_message(event):
     send_message(sender_id, message_text)
 
 def send_message(recipient_id, message_text):
-    log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
+    log("sending message to {}: {}".format(recipient_id, message_text))
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
@@ -48,12 +49,12 @@ def send_message(recipient_id, message_text):
             "text": message_text
         }
     })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    r = requests.post(REPLY_ENDPOINT, params=params, headers=headers, data=data)
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
 
-def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
+def log(msg, *args, **kwargs):
     try:
         if type(msg) is dict:
             msg = json.dumps(msg)
@@ -61,7 +62,7 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
             msg = msg.format(*args, **kwargs)
         print(msg)
     except UnicodeEncodeError:
-        pass  # squash logging errors in case of non-ascii text
+        pass
     sys.stdout.flush()
 
 

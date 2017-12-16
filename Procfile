@@ -1,1 +1,1 @@
-web: gunicorn app:app --log-file=-
+web: gunicorn fb_messenger_connector --log-file=-
