@@ -1,2 +1,2 @@
-export FLASK_APP=app.py
+export FLASK_APP=fb_messenger_connector.py
 flask run
