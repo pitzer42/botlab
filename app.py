@@ -10,8 +10,8 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def verify():
-    if request.args["hub.mode"] == "subscribe" and request.args["hub.challenge"]:
-        if request.args["hub.verify_token"] == os.environ["VERIFY_TOKEN"]:
+    if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
+        if request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return request.args["hub.challenge"], 200
         return "Verification token mismatch", 403
     return "Hello world", 200
@@ -23,7 +23,7 @@ def webhook():
     if data["object"] == "page":
         for entry in data["entry"]:
             for messaging_event in entry["messaging"]:
-                if messaging_event["message"]:
+                if messaging_event.get("message"):
                     handle_message(messaging_event)
     return "ok", 200
 
