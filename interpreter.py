@@ -1,5 +1,4 @@
 import nltk
-from nltk import tokenize
 from rippletagger.tagger import Tagger
 from product import Product
 
@@ -7,7 +6,7 @@ LANG = 'portuguese'
 LANG_CODE = 'pt-2'
 
 def interpret(sender, message):
-	tokens = tokenize.word_tokenize(message, language=LANG)
+	tokens = tokenize(message, language=LANG)
 	tokens = tag(tokens)
 	products = identify_products(tokens)
 	answer = ""
@@ -18,8 +17,8 @@ def interpret(sender, message):
 		answer = 'waaat?'
 	return answer
 
-def tokenize_message(message):
-	return tokenize.word_tokenize(message, language=LANG)
+def tokenize(message):
+	return nltk.tokenize.word_tokenize(message, language=LANG)
 
 def tag(tokens):
 	#RSLPStemmer uses xrange from python 2.7 and was the best POS tagger found.
