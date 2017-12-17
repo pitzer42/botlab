@@ -9,9 +9,13 @@ LANG_CODE = 'pt-2'
 def interpret(sender, message):
 	tokens = tokenize.word_tokenize(message, language=LANG)
 	tokens = tag(tokens)
+	products = identify_products(tokens)
 	answer = ""
-	for product in identify_products(tokens):
-		answer += str(product) + '?\n'
+	if(len(products) > 0):
+		for product in :
+			answer += str(product) + '?\n'
+	else:
+		answer = "Pode repetir?"
 	return answer
 
 def tokenize_message(message):
