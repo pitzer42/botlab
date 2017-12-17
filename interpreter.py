@@ -12,7 +12,7 @@ def interpret(sender, message):
 	products = identify_products(tokens)
 	answer = ""
 	if(len(products) > 0):
-		for product in :
+		for product in products:
 			answer += str(product) + '?\n'
 	else:
 		answer = "Pode repetir?"
