@@ -15,7 +15,6 @@ def interpret(sender, message):
 	answer = ""
 	for product in identify_products(tokens):
 		answer += str(product) + '?\n'
-	print(answer)
 	return answer
 
 def tokenize_message(message):

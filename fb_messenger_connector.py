@@ -40,6 +40,7 @@ def handle_message(event):
     sender_id = event["sender"]["id"]
     message_text = event["message"]["text"]
     answer = interpret(sender_id, message_text)
+    log(answer)
     send_message(sender_id, answer)
 
 def send_message(recipient_id, message_text):
