@@ -12,7 +12,7 @@ nltk.download('rslp')
 def interpret(sender, message):
 	tokens = tokenize.word_tokenize(message, language=LANG)
 	tokens = tag(tokens)
-	return '?\n'.join(map(str, identify_products(tokens))
+	return '?\n'.join(map(str, identify_products(tokens)))
 
 def tokenize_message(message):
 	return tokenize.word_tokenize(message, language=LANG)
