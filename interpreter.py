@@ -14,7 +14,7 @@ def interpret(sender, text):
 	tokens = tag(tokens)
 	products = identify_products(tokens)
 	product_urls = valid_product_urls(products)
-	if(len(product_urls) > 0)
+	if(len(product_urls) > 0):
 		return '\n\n'.join(answer)
 	return random_answer()
 
