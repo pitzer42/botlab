@@ -18,7 +18,7 @@ def interpret(sender, text):
 		for product in products:
 			url = product_url(product)
 			content = str(requests.get(url).content)
-			if(content.index('o encontrou resultado')):
+			if(content.find('o encontrou resultado') > 0):
 				answer = random_answer()
 			else:
 				answer += url + '\n'
