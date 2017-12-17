@@ -6,9 +6,6 @@ from product import Product
 LANG = 'portuguese'
 LANG_CODE = 'pt-2'
 
-#nltk.download('punkt')
-#nltk.download('rslp')
-
 def interpret(sender, message):
 	tokens = tokenize.word_tokenize(message, language=LANG)
 	tokens = tag(tokens)
