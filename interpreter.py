@@ -7,6 +7,7 @@ import config
 import random
 from rippletagger.tagger import Tagger
 from product import Product
+import requests
 
 def interpret(sender, text):
 	tokens = tokenize(text)
@@ -15,7 +16,12 @@ def interpret(sender, text):
 	answer = ""
 	if(len(products) > 0):
 		for product in products:
-			answer += product_url(products[0]) + '\n'
+			url = product_url(product)
+			content = str(requests.get(url).content)
+			if(content.index('o encontrou resultado')):
+				answer = random_answer()
+			else:
+				answer += url + '\n'
 	else:
 		answer = random_answer()
 	return answer
