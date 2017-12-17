@@ -12,7 +12,7 @@ nltk.download('rslp')
 def interpret(sender, message):
 	tokens = tokenize.word_tokenize(message, language=LANG)
 	tokens = tag(tokens)
-	return '; ou ' + identify_products(tokens) + '?'
+	return '\n' + identify_products(tokens) + '?'
 
 def tokenize_message(message):
 	return tokenize.word_tokenize(message, language=LANG)
@@ -24,7 +24,7 @@ def tag(tokens):
 	tagger = Tagger(language=LANG_CODE)
 	return tagger.tag(' '.join(tokens))
 
-def identify_products(self, tagged_tokens):
+def identify_products(tagged_tokens):
 	product = None
 	products = []
 	for token, tag in tagged_tokens:
