@@ -6,6 +6,7 @@ from rippletagger.tagger import Tagger
 LANG = 'portuguese'
 LANG_CODE = 'pt-2'
 
+nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('rslp')
 
