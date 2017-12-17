@@ -10,7 +10,7 @@ nltk.download('stopwords')
 nltk.download('rslp')
 
 def interpret(sender, message):
-    tokens = tokenize.word_tokenize(message, language=LANG)
+    tokens = tokenize.word_tokenize(message)#, language=LANG)
     #tokens = remove_stopwords(tokens)
     tokens = tag(tokens)
     tokens = keep_tagged_tokens('NOUN', tokens)
