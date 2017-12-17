@@ -64,7 +64,8 @@ def send_message(recipient_id, message_text):
         log(r.text)
 
 def log(msg, *args, **kwargs):
-    msg = str(msg)
+    pass
+    """
     try:
         if type(msg) is dict:
             msg = json.dumps(msg)
@@ -74,6 +75,7 @@ def log(msg, *args, **kwargs):
     except UnicodeEncodeError:
         pass
     sys.stdout.flush()
+    """
 
 
 if __name__ == '__main__':
