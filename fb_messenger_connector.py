@@ -19,6 +19,7 @@ REPLY_ENDPOINT = "https://graph.facebook.com/v2.6/me/messages"
 
 @app.route('/', methods=['GET'])
 def verify_token():
+    print("verify_token")
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return request.args["hub.challenge"], 200
@@ -27,6 +28,7 @@ def verify_token():
 
 @app.route('/', methods=['POST'])
 def on_message_receive():
+    print("on_message_receive")
     data = request.get_json()
     log(data)
     if data["object"] == "page":
@@ -37,12 +39,14 @@ def on_message_receive():
     return "ok", 200
 
 def handle_message(event):
+    print("handle_message")
     sender_id = event["sender"]["id"]
     message_text = event["message"]["text"]
     answer = interpret(sender_id, message_text)
     send_message(sender_id, answer)
 
 def send_message(recipient_id, message_text):
+    print("send_message")
     log("sending message to {}: {}".format(recipient_id, message_text))
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
@@ -76,7 +80,11 @@ def log(msg, *args, **kwargs):
         pass
     sys.stdout.flush()
     """
+def print_2(obj):
+    print(str(obj))
+    sys.stdout.flush()
 
+__builtins__['print'] = print_2
 
 if __name__ == '__main__':
     app.run(debug=True)
