@@ -6,7 +6,7 @@ LANG = 'portuguese'
 LANG_CODE = 'pt-2'
 
 def interpret(sender, message):
-	tokens = tokenize(message, language=LANG)
+	tokens = tokenize(message)
 	tokens = tag(tokens)
 	products = identify_products(tokens)
 	answer = ""
