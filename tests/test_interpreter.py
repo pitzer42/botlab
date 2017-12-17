@@ -1,5 +1,5 @@
 import unittest
-from interpreter import tokenize, tag, identify_products
+from interpreter import tokenize, tag, identify_products, interpret
 
 class SmokeTest(unittest.TestCase):
 
@@ -16,6 +16,10 @@ class SmokeTest(unittest.TestCase):
         self._test_product_quantity_per_text('sim', 0)
 
         self._test_attributes_per_product('quero comprar um tênis vans azul', 2)
+
+        print(interpret('tester', 'sim'))
+
+
 
     def _test_attributes_per_product(self, text, expectedQuantity):
         products = self._products_from_text(text)

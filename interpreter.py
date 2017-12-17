@@ -1,3 +1,4 @@
+import random
 import nltk
 from rippletagger.tagger import Tagger
 from product import Product
@@ -11,17 +12,17 @@ def interpret(sender, message):
 	products = identify_products(tokens)
 	answer = ""
 	if(len(products) > 0):
-		answer = product_url(products[0])
-		"""
 		for product in products:
-			answer += str(product) + '?\n'
-			"""
+			answer += product_url(products[0]) + '\n'
 	else:
-		answer = 'waaat?'
+		answer = default_answer()
 	return answer
 
 def product_url(product):
 	return 'http://www.magazineluiza.com.br/busca/{}/'.format(product.name)
+
+def default_answer():
+	return random.choice(['Não entendi. Pode repetir?', 'O que você está procurando hoje?', 'Posso te ajudar a escolher o que comprar.', 'acho q não entendi.', 'temos umas ofertas ótimas hoje. Oq vc está procurando?'])
 
 def tokenize(message):
 	return nltk.tokenize.word_tokenize(message, language=LANG)
