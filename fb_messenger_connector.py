@@ -8,14 +8,12 @@ Inspirade by:
 import os
 import sys
 import json
+import requests
+import config
+from flask import Flask, request
 from interpreter import interpret
 
-import requests
-from flask import Flask, request
-
 app = Flask(__name__)
-
-REPLY_ENDPOINT = "https://graph.facebook.com/v2.6/me/messages"
 
 @app.route('/', methods=['GET'])
 def verify_token():
@@ -62,7 +60,7 @@ def send_message(recipient_id, message_text):
             "text": message_text
         }
     })
-    r = requests.post(REPLY_ENDPOINT, params=params, headers=headers, data=data)
+    r = requests.post(config.REPLY_ENDPOINT, params=params, headers=headers, data=data)
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
@@ -70,16 +68,6 @@ def send_message(recipient_id, message_text):
 def log(msg, *args, **kwargs):
     print(msg)
     sys.stdout.flush()
-    """
-    try:
-        if type(msg) is dict:
-            msg = json.dumps(msg)
-        else:
-            msg = msg.format(*args, **kwargs)
-        print(msg)
-    except UnicodeEncodeError:
-        pass
-    sys.stdout.flush()
-    """
+
 if __name__ == '__main__':
     app.run(debug=True)

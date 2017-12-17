@@ -17,10 +17,6 @@ class SmokeTest(unittest.TestCase):
 
         self._test_attributes_per_product('quero comprar um tênis vans azul', 2)
 
-        print(interpret('tester', 'sim'))
-
-
-
     def _test_attributes_per_product(self, text, expectedQuantity):
         products = self._products_from_text(text)
         quantity = len(products[0].attributes)

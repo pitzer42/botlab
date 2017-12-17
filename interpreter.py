@@ -1,13 +1,15 @@
-import random
+"""This is a hack to redirect calls for xrange to range. It is required because
+RSLPStemmer uses xrange from python 2.7 and it is the best POS tagger found so far."""
+__builtins__['xrange'] = range
+
 import nltk
+import config
+import random
 from rippletagger.tagger import Tagger
 from product import Product
 
-LANG = 'portuguese'
-LANG_CODE = 'pt-2'
-
-def interpret(sender, message):
-	tokens = tokenize(message)
+def interpret(sender, text):
+	tokens = tokenize(text)
 	tokens = tag(tokens)
 	products = identify_products(tokens)
 	answer = ""
@@ -15,36 +17,33 @@ def interpret(sender, message):
 		for product in products:
 			answer += product_url(products[0]) + '\n'
 	else:
-		answer = default_answer()
+		answer = random_answer()
 	return answer
 
-def product_url(product):
-	return 'http://www.magazineluiza.com.br/busca/{}/'.format(product.name)
-
-def default_answer():
-	return random.choice(['Não entendi. Pode repetir?', 'O que você está procurando hoje?', 'Posso te ajudar a escolher o que comprar.', 'acho q não entendi.', 'temos umas ofertas ótimas hoje. Oq vc está procurando?'])
-
-def tokenize(message):
-	return nltk.tokenize.word_tokenize(message, language=LANG)
+def tokenize(text):
+	return nltk.tokenize.word_tokenize(text, language=config.LANG)
 
 def tag(tokens):
-	#RSLPStemmer uses xrange from python 2.7 and was the best POS tagger found.
-	#this is a hack to replace all calls to xrange to range.
-	__builtins__['xrange'] = range
-	tagger = Tagger(language=LANG_CODE)
+	tagger = Tagger(language=config.LANG_CODE)
 	return tagger.tag(' '.join(tokens))
 
 def identify_products(tagged_tokens):
 	product = None
 	products = []
 	for token, tag in tagged_tokens:
-		if(tag == 'NOUN'):
+		if(tag == config.NAME):
 			if(product):
 				products.append(product)
 			product = Product(token, [])
-		elif(tag == 'ADJ'):
+		elif(tag == config.ATTRIBUTE):
 			if(product):
 				product.attributes.append(token)
 	if(product):
 		products.append(product)
 	return products
+
+def product_url(product):
+	return config.SEARCH_URL_TEMPLATE.format(product.name)
+
+def random_answer():
+	return random.choice(config.DEFAULT_ANSWERS)
