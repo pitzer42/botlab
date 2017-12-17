@@ -13,18 +13,10 @@ def interpret(sender, text):
 	tokens = tokenize(text)
 	tokens = tag(tokens)
 	products = identify_products(tokens)
-	answer = ""
-	if(len(products) > 0):
-		for product in products:
-			url = product_url(product)
-			content = str(requests.get(url).content)
-			if(content.find('o encontrou resultado') > 0):
-				answer = random_answer()
-			else:
-				answer += url + '\n'
-	else:
-		answer = random_answer()
-	return answer
+	product_urls = valid_product_urls(products)
+	if(len(product_urls) > 0)
+		return '\n\n'.join(answer)
+	return random_answer()
 
 def tokenize(text):
 	return nltk.tokenize.word_tokenize(text, language=config.LANG)
@@ -48,8 +40,15 @@ def identify_products(tagged_tokens):
 		products.append(product)
 	return products
 
+def valid_product_urls(products):
+	return [url for product in products if is_url_valid(product_url(product))]
+
 def product_url(product):
 	return config.SEARCH_URL_TEMPLATE.format(product.name)
+
+def is_url_valid(url):
+	content = str(requests.get(url).content)
+	return content.find('o encontrou resultado') > -1
 
 def random_answer():
 	return random.choice(config.DEFAULT_ANSWERS)
