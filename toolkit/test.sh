@@ -1,1 +1,2 @@
-python -m unittest tests/*.py
+clear
+python -m unittest -v tests/*.py
