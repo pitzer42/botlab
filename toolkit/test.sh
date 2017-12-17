@@ -1,2 +1,2 @@
 clear
-python -m unittest -v ../tests/*.py
+python -m unittest -v ~/botlab/src/tests/*.py
