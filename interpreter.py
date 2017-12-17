@@ -35,7 +35,8 @@ def identify_products(tagged_tokens):
 				products.append(product)
 			product = Product(token, [])
 		elif(tag == 'ADJ'):
-			product.attributes.append(token)
+			if(product):
+				product.attributes.append(token)
 	if(product):
 		products.append(product)
 	return products
