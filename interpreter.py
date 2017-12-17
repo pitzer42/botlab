@@ -11,11 +11,17 @@ def interpret(sender, message):
 	products = identify_products(tokens)
 	answer = ""
 	if(len(products) > 0):
+		answer = product_url(products[0])
+		"""
 		for product in products:
 			answer += str(product) + '?\n'
+			"""
 	else:
 		answer = 'waaat?'
 	return answer
+
+def product_url(product):
+	return 'http://www.magazineluiza.com.br/busca/{}/'.format(product.name)
 
 def tokenize(message):
 	return nltk.tokenize.word_tokenize(message, language=LANG)
