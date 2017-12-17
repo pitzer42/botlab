@@ -41,7 +41,12 @@ def identify_products(tagged_tokens):
 	return products
 
 def valid_product_urls(products):
-	return [url for product in products if is_url_valid(product_url(product))]
+	urls = []
+	for product in products:
+		url = product_url(product)
+		if is_url_valid(url):
+			urls.append(url)
+	return urls
 
 def product_url(product):
 	return config.SEARCH_URL_TEMPLATE.format(product.name)
