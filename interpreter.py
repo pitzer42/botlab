@@ -15,7 +15,7 @@ def interpret(sender, text):
 	products = identify_products(tokens)
 	product_urls = valid_product_urls(products)
 	if(len(product_urls) > 0):
-		return '\n\n'.join(answer)
+		return '\n\n'.join(product_urls)
 	return random_answer()
 
 def tokenize(text):
