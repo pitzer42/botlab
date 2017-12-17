@@ -3,8 +3,6 @@ from nltk import tokenize
 from rippletagger.tagger import Tagger
 from product import Product
 
-nltk.download('punkt')
-
 LANG = 'portuguese'
 LANG_CODE = 'pt-2'
 
