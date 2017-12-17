@@ -11,9 +11,12 @@ def interpret(sender, message):
 	tokens = tag(tokens)
 	products = identify_products(tokens)
 	answer = ""
-	for product in products:
-		answer += str(product) + '?\n'
-	return answer == "" ? "wat?" : answer
+	if(len(products) > 0):
+		for product in products:
+			answer += str(product) + '?\n'
+	else:
+		answer = 'waaat?'
+	return answer
 
 def tokenize_message(message):
 	return tokenize.word_tokenize(message, language=LANG)
