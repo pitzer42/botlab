@@ -64,6 +64,7 @@ def send_message(recipient_id, message_text):
         log(r.text)
 
 def log(msg, *args, **kwargs):
+    msg = str(msg)
     try:
         if type(msg) is dict:
             msg = json.dumps(msg)
