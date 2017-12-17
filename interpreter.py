@@ -1,6 +1,5 @@
 import nltk
 from nltk import tokenize
-from nltk.stem import RSLPStemmer
 from rippletagger.tagger import Tagger
 
 LANG = 'portuguese'
@@ -12,8 +11,10 @@ nltk.download('rslp')
 def interpret(sender, message):
     tokens = tokenize.word_tokenize(message, language=LANG)
     tokens = tag(tokens)
-    tokens = keep_tagged_tokens('NOUN', tokens)
     return ' ou '.join(tokens) + '?'
+
+def tokenize_message(message):
+	return tokenize.word_tokenize(message, language=LANG)
 
 def tag(tokens):
 	#RSLPStemmer uses xrange from python 2.7 and was the best POS tagger found.
@@ -22,5 +23,40 @@ def tag(tokens):
 	tagger = Tagger(language=LANG_CODE)
 	return tagger.tag(' '.join(tokens))
 
-def keep_tagged_tokens(tag, tagged_tokens):
-	return [token for token, token_tag in tagged_tokens if token_tag == tag]
+def identify_products(tagged_tokens):
+	NOUN = 'NOUN'
+	ADJ = 'ADJ'
+	iterator = iter(tagged_tokens)
+	products = []
+	name, attributes, product = None
+	item = iterator.next()
+	while(item):
+		identify_noun()
+		identify_attributes()
+		product = Product(name, attributes)
+		products.append(product)
+		move()
+
+	def move():
+		name, attributes, product = None
+		item = iterator.next()
+
+	def identify_noun():
+
+		while(item is not None):
+			if(item[1] == NOUN)
+				identify_attributes()
+				products.append(Product(noum, attributes))
+
+	def identify_attributes():
+		item = iterator.next()
+		while(item is not None):
+			if(item[1] == ADJ):
+				attributes.append(item[0])
+
+
+class Product:
+
+	def __init__(self, name, *attributes):
+		self.name = name
+		self.attributes = attributes
