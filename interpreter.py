@@ -53,7 +53,7 @@ def product_url(product):
 
 def is_url_valid(url):
 	content = str(requests.get(url).content)
-	return content.find('o encontrou resultado algum') == -1
+	return content.find('Por favor, tente outra vez com termos menos ') == -1
 
 def random_answer():
 	return random.choice(config.DEFAULT_ANSWERS)
