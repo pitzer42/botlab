@@ -1,5 +1,5 @@
-import config
 import requests
+import botlab.config as config
 
 def url_for(item):
     url = config.SEARCH_URL_TEMPLATE.format(item)

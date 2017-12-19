@@ -9,9 +9,9 @@ import os
 import sys
 import json
 import requests
-import config
+import botlab.config as config
 from flask import Flask, request
-from replier import reply
+from botlab.replier import reply
 
 app = Flask(__name__)
 
@@ -97,9 +97,6 @@ def send_button(recipient_id, message_text):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
-
-
-
 
 def log(msg, *args, **kwargs):
     print(msg)

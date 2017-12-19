@@ -1,7 +1,7 @@
-from config import DEFAULT_ANSWERS
 from random import choice
-from url_provider import url_for
-from nlp import products_from_text
+from botlab.config import DEFAULT_ANSWERS
+from botlab.url_provider import url_for
+from botlab.nlp import products_from_text
 
 def reply(sender, message):
 	products = products_from_text(message)

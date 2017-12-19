@@ -3,9 +3,9 @@ RSLPStemmer uses xrange from python 2.7 and it is the best POS tagger found so f
 __builtins__['xrange'] = range
 
 import nltk
-import config
+import botlab.config as config
 from rippletagger.tagger import Tagger
-from product import Product
+from botlab.product import Product
 import requests
 
 def tokenize(text):
