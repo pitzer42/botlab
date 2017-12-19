@@ -41,7 +41,7 @@ def handle_message(event):
     sender_id = event["sender"]["id"]
     message_text = event["message"]["text"]
     answer = reply(sender_id, message_text)
-    send_message(sender_id, answer)
+    send_button(sender_id, answer)
 
 def send_message(recipient_id, message_text):
     log("send_message")
@@ -64,6 +64,42 @@ def send_message(recipient_id, message_text):
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
+
+def send_button(recipient_id, text):
+    log("send_message")
+    log("sending message to {}: {}".format(recipient_id, message_text))
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+        "recipient": {
+            "id": recipient_id
+        },
+        "message": {
+            "attachment":{
+              "type":"template",
+              "payload":{
+                "template_type":"button",
+                "text":"What do you want to do next?",
+                "buttons":[
+                  {
+                    "type":"web_url",
+                    "url":"https://www.messenger.com",
+                    "title":"Visit Messenger"
+                  }
+                  ]}}}
+        }
+    })
+    r = requests.post(config.REPLY_ENDPOINT, params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+
+
+
 
 def log(msg, *args, **kwargs):
     print(msg)
