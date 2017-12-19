@@ -91,7 +91,7 @@ def send_button(recipient_id, text):
                     "title":"Visit Messenger"
                   }
                   ]}}}
-        }
+
     })
     r = requests.post(config.REPLY_ENDPOINT, params=params, headers=headers, data=data)
     if r.status_code != 200:
