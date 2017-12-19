@@ -65,7 +65,7 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
-def send_button(recipient_id, text):
+def send_button(recipient_id, message_text):
     log("send_message")
     log("sending message to {}: {}".format(recipient_id, message_text))
     params = {
