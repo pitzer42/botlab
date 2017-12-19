@@ -11,7 +11,7 @@ import json
 import requests
 import config
 from flask import Flask, request
-from interpreter import interpret
+from replier import reply
 
 app = Flask(__name__)
 
@@ -40,7 +40,7 @@ def handle_message(event):
     log("handle_message")
     sender_id = event["sender"]["id"]
     message_text = event["message"]["text"]
-    answer = interpret(sender_id, message_text)
+    answer = reply(sender_id, message_text)
     send_message(sender_id, answer)
 
 def send_message(recipient_id, message_text):
