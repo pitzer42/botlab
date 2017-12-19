@@ -41,7 +41,7 @@ def handle_message(event):
     sender_id = event["sender"]["id"]
     message_text = event["message"]["text"]
     answer = reply(sender_id, message_text)
-    send_button(sender_id, answer)
+    send_message(sender_id, answer)
 
 def send_message(recipient_id, message_text):
     log("send_message")
