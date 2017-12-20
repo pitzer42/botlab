@@ -5,7 +5,7 @@ from botlab.url_provider import url_for
 from botlab.storage import Storage
 
 def know_your_customer(sender, topics):
-    return choice(['por que {}?'.format(topics[0].key), choice(CONVERSATION_STARTERS)])
+    return choice(CONVERSATION_STARTERS)
 
 def suggest_products(sender, topics):
 	answer = ''
