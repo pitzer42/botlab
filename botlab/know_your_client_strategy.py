@@ -12,6 +12,7 @@ class KnowYourClientStrategy:
 
     def next_answer(self):
         if len(self._answers) == 0:
+            print('^^^^^^^^^^^^^^^^^^^^^^^^^ everyday im shuffling')
             self._answers = list(CONVERSATION_STARTERS)
             shuffle(self._answers)
         return self._answers.pop()
