@@ -32,20 +32,20 @@ class StrategySelector:
             total += topic.sentiment
         return total/count
 
-    def reply(client_id, topics):
-        storage.save_topics(client_id, topics)
+    def use_strategy(self, client_id, topics):
         key = self.storage.get_interaction_strategy(client_id)
         strategy = interaction_strategy_map[key]
-        storage.close()
         return strategy(client_id, topics)
 
     def reply(self, client_id, message):
         topics = topics_from_text(message)
+        storage.save_topics(client_id, topics)
         if len(topics) == 0:
             return choice(DEFAULT_ANSWERS)
-        answer = reply(client_id, topics)
+        answer = self.use_strategy(client_id, topics)
         if self.average_sentiment(topics) < SENTIMENT_THRESHOLD:
             answer += '\n\n' + SUGGEST_MENU
+        storage.close()
         return answer
 
     def on_postback(self, client_id, payload):
