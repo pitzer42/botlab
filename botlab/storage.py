@@ -11,7 +11,7 @@ class Storage:
         else:
             self.clients = self._connection.botlab_db.clients
 
-    def save_interests(client_id, interest_items):
+    def save_interests(self, client_id, interest_items):
         client_interests = {}
         client_interests['client_id'] = client_id
         client_interests['interests'] = [i.__dict__ for i in interest_items]
