@@ -1,4 +1,5 @@
 SANDBOX = False
+DEFAULT_INTERACTION_STRATEGY = 'KYC'
 
 AZURE_ACCESS_TOKEN = '61eb47b1d93f4c49bc34d2343410f94f'
 AZURE_TEXT_ANALYTICS_ENDPOINT = 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment'
