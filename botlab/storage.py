@@ -11,6 +11,12 @@ class Storage:
         else:
             self.clients = self._connection.botlab_db.clients
 
+    def save_interests(client_id, interest_items):
+        client_interests = {}
+        client_interests['client_id'] = client_id
+        client_interests['interests'] = [i.__dict__ for i in interest_items]
+        self.clients.insert_one(client_interests)
+
     def close(self):
         if self._sandbox:
             self.clients.delete_many({})
