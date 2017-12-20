@@ -5,9 +5,11 @@ from botlab.url_provider import url_for
 from botlab.storage import Storage
 
 def know_your_customer(sender, topics):
+    print('KYC')
     return choice(CONVERSATION_STARTERS)
 
 def suggest_products(sender, topics):
+    print('SUGGESTIONS')
 	answer = ''
 	for topic in topics:
 		url = url_for(topic.key)
