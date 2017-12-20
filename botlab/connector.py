@@ -32,9 +32,13 @@ def on_message_receive():
 
     data = request.get_json()
     if data['object'] == 'page':
+        print('page')
+        sys.stdout.flush()
         for entry in data['entry']:
             for messaging_event in entry['messaging']:
                 if messaging_event.get('message'):
+                    print('message event')
+                    sys.stdout.flush()
                     handle_message(messaging_event)
                 elif messaging_event.get('postback'):
                     print('postback event')

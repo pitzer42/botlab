@@ -12,7 +12,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
     "composer_input_disabled":false,
     "call_to_actions":[
       {
-        "title":"Sugestões",
+        "title":"Sugestões de Produtos",
         "type":"postback",
         "payload":"SUG"
       },{
