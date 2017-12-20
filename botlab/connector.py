@@ -49,7 +49,7 @@ def handle_postback(event):
 
 def send_message(recipient_id, message_text):
     params = {
-        'access_token': config.PAGE_ACCESS_TOKEN
+        'access_token': config.FB_ACCESS_TOKEN
     }
     headers = {
         'Content-Type': 'application/json'
