@@ -18,7 +18,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def verify_token():
     if request.args.get('hub.mode') == 'subscribe' and request.args.get('hub.challenge'):
-        if request.args.get('hub.verify_token') == config.FB_CHALLENGE
+        if request.args.get('hub.verify_token') == config.FB_CHALLENGE:
             return request.args['hub.challenge'], 200
         return 'Verification token mismatch', 403
     return 'Hello world', 200
