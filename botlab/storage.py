@@ -26,7 +26,7 @@ class Storage:
         upsert=True)
 
     def get_interaction_strategy(self, client_id):
-        return self.clients.find_one({'client_id':client_id})['strategy']
+        return self.clients.find_one({'client_id':client_id}).get('strategy')
 
     def close(self):
         self._connection.close()
