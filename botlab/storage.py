@@ -15,9 +15,10 @@ class Storage:
         if len(interest_items) == 0:
             return
         client_interests = {}
-        client_interests['client_id'] = client_id
-        client_interests['interests'] = [i.__dict__ for i in interest_items]
-        self.clients.update_one({'client_id':client_id}, {'$push': {'interests' : {'$each': client_interests['interests']}}}, upsert=True)
+        interest_items = [i.__dict__ for i in interest_items]
+        self.clients.update_one({'client_id':client_id}, \
+        {'$push': {'interests' : {'$each': interest_items}}}, \
+        upsert=True)
 
     def close(self):
         if self._sandbox:
