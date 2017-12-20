@@ -22,7 +22,6 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def verify_token():
-    log("verify_token")
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
             return request.args["hub.challenge"], 200
@@ -31,7 +30,6 @@ def verify_token():
 
 @app.route('/', methods=['POST'])
 def on_message_receive():
-    log("on_message_receive")
     data = request.get_json()
     log(data)
     if data["object"] == "page":
@@ -42,15 +40,12 @@ def on_message_receive():
     return "ok", 200
 
 def handle_message(event):
-    log("handle_message")
     sender_id = event["sender"]["id"]
     message_text = event["message"]["text"]
     answer = reply(sender_id, message_text)
     send_message(sender_id, answer)
 
 def send_message(recipient_id, message_text):
-    log("send_message")
-    log("sending message to {}: {}".format(recipient_id, message_text))
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
@@ -71,8 +66,6 @@ def send_message(recipient_id, message_text):
         log(r.text)
 
 def send_button(recipient_id, message_text):
-    log("send_message")
-    log("sending message to {}: {}".format(recipient_id, message_text))
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
