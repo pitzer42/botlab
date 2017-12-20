@@ -10,12 +10,12 @@ def know_your_customer(sender, topics):
 
 def suggest_products(sender, topics):
     print('SUGGESTIONS')
-	answer = ''
-	for topic in topics:
-		url = url_for(topic.key)
-		if url:
-			answer += url + '\n\n'
-	return answer
+    answer = ''
+    for topic in topics:
+        url = url_for(topic.key)
+        if url:
+            answer += url + '\n\n'
+        return answer
 
 reply_strategy = know_your_customer
 

@@ -1,13 +1,15 @@
 from pymongo import MongoClient
 from botlab.config import DB_URI, SANDBOX
 
+def _sandbox_mode():
+    return __builtins__.get('sandbox')
+
 class Storage:
 
     def __init__(self, uri=DB_URI):
         self._connection = MongoClient(uri)
-        if SANDBOX:
+        if _sandbox_mode():
             self.clients = self._connection.botlab_db.test_clients
-            self.clients.delete_many({}) #clear sandbox for a new test
         else:
             self.clients = self._connection.botlab_db.clients
 
