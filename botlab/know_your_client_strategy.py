@@ -1,25 +1,20 @@
-from random import choice
+from random import choice, shuffle
 from botlab.config import DEFAULT_ANSWERS
+from botlab.config import CONVERSATION_STARTERS
 from botlab.url_provider import url_for
 from botlab.nlp import topics_from_text
 from botlab.storage import Storage
 
 class KnowYourClientStrategy:
 
-    def greetings(self):
-        return choice(['O que você achou do Iphone X?',\
-        'Você tem assistido alguma série?',\
-        'Bateu uma fome aqui... alguma sugestão?',\
-        'Acho que estou precisando de umas férias.\nQual foi a sua última viagem?',\
-        'O que você acha do cenário atual socioeconômico brasileiro?',\
-        'Hj eu tô assim: https://scontent.fcpq1-1.fna.fbcdn.net/v/t1.0-9/25498382_2147912955433618_8826704789237580227_n.jpg?oh=2c842e11a51a67ac91b15f4d175de697&oe=5AC71B5D',\
-        'Cachorros ou gatos?',\
-        'Bolacha ou biscoito?'])
+    def next_answer(self):
+        if len(self._answers) == 0:
+            self._answers = shuffle(CONVERSATION_STARTERS)
+        return self._answers.pop()
 
     def reply(self, sender, message):
         topics = topics_from_text(message)
-        print(str(topics))
         storage = Storage()
         storage.save_topics(sender, topics)
         storage.close()
-        return self.greetings()
+        return self.next_answer()

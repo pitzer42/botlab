@@ -21,7 +21,7 @@ def topics_from_tags(tagged_tokens, sentiment=0.5):
     topic = None
     topics = []
     for token, tag in tagged_tokens:
-        if(tag == config.NAME):
+        if(tag in config.TOPIC_KEY_TAGS):
             if(topic):
                 topics.append(topic)
             topic = Topic(token, [], sentiment)
