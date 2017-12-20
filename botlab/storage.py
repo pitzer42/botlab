@@ -20,5 +20,13 @@ class Storage:
         {'$push': {'topics' : {'$each': topics_dicts}}}, \
         upsert=True)
 
+    def save_interaction_strategy(self, client_id, strategy):
+        self.clients.update_one({'client_id':client_id}, \
+        {'$set': {'strategy' : strategy}}, \
+        upsert=True)
+
+    def get_interaction_strategy(self, client_id):
+        return self.clients.find_one({'client_id':client_id})['strategy']
+
     def close(self):
         self._connection.close()

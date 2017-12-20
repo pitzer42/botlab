@@ -14,7 +14,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
       {
         "title":"Sugestões",
         "type":"postback",
-        "payload":"SUGGESTIONS"
+        "payload":"SUG"
       },{
         "title":"Bate-papo",
         "type":"postback",
