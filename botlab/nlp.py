@@ -8,6 +8,8 @@ from rippletagger.tagger import Tagger
 from botlab.product import Product
 import requests
 
+import json
+
 def tokenize(text):
     return nltk.tokenize.word_tokenize(text, language=config.LANG)
 
@@ -34,3 +36,12 @@ def products_from_text(text):
     tokens = tokenize(text)
     tags = tag(tokens)
     return products_from_tags(tags)
+
+def get_sentiment(text):
+    headers = {'Ocp-Apim-Subscription-Key': config.AZURE_ACCESS_KEY}
+    data = { 'documents': [
+        { 'id': '1', 'language': config.AZURE_LANG_CODE, 'text': text },
+    ]}
+    data = json.dumps(data)
+    response = requests.post(config.AZURE_TEXT_ANALYTICS_ENDPOINT, data=data, headers=headers)
+    return response.json()['documents'][0]['score']

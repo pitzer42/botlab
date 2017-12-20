@@ -8,6 +8,7 @@ class Storage:
         self._connection = MongoClient(uri)
         if sandbox:
             self.clients = self._connection.botlab_db.test_clients
+            self.clients.delete_many({}) #clear sandbox for a new test
         else:
             self.clients = self._connection.botlab_db.clients
 
@@ -21,6 +22,4 @@ class Storage:
         upsert=True)
 
     def close(self):
-        if self._sandbox:
-            self.clients.delete_many({})
         self._connection.close()
