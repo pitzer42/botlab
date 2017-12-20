@@ -39,9 +39,9 @@ class StrategySelector:
 
     def reply(self, client_id, message):
         topics = topics_from_text(message)
-        self.storage.save_topics(client_id, topics)
         if len(topics) == 0:
             return choice(DEFAULT_ANSWERS)
+        self.storage.save_topics(client_id, topics)
         answer = self.use_strategy(client_id, topics)
         self.storage.close()
         if self.average_sentiment(topics) < SENTIMENT_THRESHOLD:
@@ -50,4 +50,4 @@ class StrategySelector:
 
     def on_postback(self, client_id, payload):
         self.storage.save_interaction_strategy(client_id, payload)
-        self.storage.close()
+        return choice(DEFAULT_ANSWERS)
