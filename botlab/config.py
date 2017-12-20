@@ -1,3 +1,4 @@
+DB_URI = 'mongodb://dev:dev12342@ds019746.mlab.com:19746/botlab_db'
 LANG = 'portuguese'
 LANG_CODE = 'pt-2'
 NAME = 'NOUN'
