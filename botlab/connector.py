@@ -27,6 +27,9 @@ def verify_token():
 
 @app.route('/', methods=['POST'])
 def on_message_receive():
+    print('message received')
+    sys.stdout.flush()
+
     data = request.get_json()
     if data['object'] == 'page':
         for entry in data['entry']:
@@ -34,6 +37,8 @@ def on_message_receive():
                 if messaging_event.get('message'):
                     handle_message(messaging_event)
                 elif messaging_event.get('postback'):
+                    print('postback event')
+                    sys.stdout.flush()
                     handle_postback(messaging_event)
     return 'ok', 200
 
