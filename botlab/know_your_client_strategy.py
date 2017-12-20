@@ -16,7 +16,7 @@ class KnowYourClientStrategy:
         'Cachorros ou gatos?',\
         ' Bolacha ou biscoito?'])
 
-    def reply(sender, message):
+    def reply(self, sender, message):
         topics = topics_from_text(message)
         storage = Storage()
         storage.save_topics(sender, topics)
