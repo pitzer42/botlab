@@ -11,6 +11,8 @@ import botlab.config as config
 from flask import Flask, request
 from botlab.interactions import StrategySelector
 
+import sys
+
 strategy = StrategySelector()
 
 app = Flask(__name__)
@@ -45,6 +47,7 @@ def handle_postback(event):
     sender_id = event['sender']['id']
     payload = event['postback']['payload']
     print('postback ' + payload)
+    sys.stdout.flush()
     answer = strategy.on_postback(sender_id, payload)
     send_message(sender_id, answer)
 
