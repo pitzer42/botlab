@@ -44,6 +44,7 @@ def handle_message(event):
 def handle_postback(event):
     sender_id = event['sender']['id']
     payload = event['postback']['payload']
+    print('postback ' + payload)
     answer = strategy.on_postback(sender_id, payload)
     send_message(sender_id, answer)
 
