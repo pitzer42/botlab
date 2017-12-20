@@ -1,7 +1,7 @@
 from random import choice
 from botlab.config import DEFAULT_ANSWERS
 from botlab.url_provider import url_for
-from botlab.nlp import products_from_text
+from botlab.nlp import topics_from_text
 from botlab.storage import Storage
 
 class KnowYourClientStrategy:
