@@ -12,7 +12,8 @@ class KnowYourClientStrategy:
 
     def next_answer(self):
         if len(self._answers) == 0:
-            self._answers = shuffle(CONVERSATION_STARTERS)
+            self._answers = list(CONVERSATION_STARTERS)
+            shuffle(self._answers)
         return self._answers.pop()
 
     def reply(self, sender, message):
