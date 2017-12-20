@@ -39,7 +39,7 @@ def topics_from_text(text):
     return topics_from_tags(tags, sentiment)
 
 def get_sentiment(text):
-    headers = {'Ocp-Apim-Subscription-Key': config.AZURE_ACCESS_KEY}
+    headers = {'Ocp-Apim-Subscription-Key': config.AZURE_ACCESS_TOKEN}
     data = { 'documents': [
         { 'id': '1', 'language': config.AZURE_LANG_CODE, 'text': text },
     ]}
