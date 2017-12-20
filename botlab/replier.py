@@ -11,7 +11,7 @@ def reply(sender, message):
 	storage.close()
 	answer = ''
 	for product in products:
-		url = url_for(product)
+		url = url_for(product.name)
 		if url:
 			answer += url + '\n\n'
 	return answer if answer != '' else random_answer()

@@ -17,7 +17,7 @@ class Storage:
         client_interests = {}
         client_interests['client_id'] = client_id
         client_interests['interests'] = [i.__dict__ for i in interest_items]
-        self.clients.update({'client_id':client_id}, {'$push': {'interests' : {'$each': client_interests['interests']}}})
+        self.clients.update_one({'client_id':client_id}, {'$push': {'interests' : {'$each': client_interests['interests']}}})
 
     def close(self):
         if self._sandbox:
