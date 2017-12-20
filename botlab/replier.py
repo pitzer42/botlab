@@ -1,17 +1,17 @@
 from random import choice
 from botlab.config import DEFAULT_ANSWERS
 from botlab.url_provider import url_for
-from botlab.nlp import products_from_text
+from botlab.nlp import topics_from_text
 from botlab.storage import Storage
 
 def reply(sender, message):
-	products = products_from_text(message)
+	topics = topics_from_text(message)
 	storage = Storage()
-	storage.save_interests(sender, products)
+	storage.save_topics(sender, topics)
 	storage.close()
 	answer = ''
-	for product in products:
-		url = url_for(product.name)
+	for topic in topics:
+		url = url_for(topic.key)
 		if url:
 			answer += url + '\n\n'
 	return answer if answer != '' else random_answer()

@@ -12,13 +12,13 @@ class Storage:
         else:
             self.clients = self._connection.botlab_db.clients
 
-    def save_interests(self, client_id, interest_items):
-        if len(interest_items) == 0:
+    def save_topics(self, client_id, topics):
+        if len(topics) == 0:
             return
         client_interests = {}
-        interest_items = [i.__dict__ for i in interest_items]
+        topics_dicts = [t.__dict__ for t in topics]
         self.clients.update_one({'client_id':client_id}, \
-        {'$push': {'interests' : {'$each': interest_items}}}, \
+        {'$push': {'topics' : {'$each': topics_dicts}}}, \
         upsert=True)
 
     def close(self):

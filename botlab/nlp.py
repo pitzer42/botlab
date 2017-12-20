@@ -5,7 +5,7 @@ __builtins__['xrange'] = range
 import nltk
 import botlab.config as config
 from rippletagger.tagger import Tagger
-from botlab.product import Product
+from botlab.models import Topic
 import requests
 
 import json
@@ -17,25 +17,26 @@ def tag(tokens):
     tagger = Tagger(language=config.LANG_CODE)
     return tagger.tag(' '.join(tokens))
 
-def products_from_tags(tagged_tokens):
-    product = None
-    products = []
+def topics_from_tags(tagged_tokens, sentiment=0.5):
+    topic = None
+    topics = []
     for token, tag in tagged_tokens:
         if(tag == config.NAME):
-            if(product):
-                products.append(product)
-            product = Product(token, [])
+            if(topic):
+                topics.append(topic)
+            topic = Topic(token, [], sentiment)
         elif(tag == config.ATTRIBUTE):
-            if(product):
-                product.attributes.append(token)
-    if(product):
-        products.append(product)
-    return products
+            if(topic):
+                topic.attributes.append(token)
+    if(topic):
+        topics.append(topic)
+    return topics
 
-def products_from_text(text):
+def topics_from_text(text):
     tokens = tokenize(text)
     tags = tag(tokens)
-    return products_from_tags(tags)
+    sentiment = get_sentiment(text)
+    return topics_from_tags(tags, sentiment)
 
 def get_sentiment(text):
     headers = {'Ocp-Apim-Subscription-Key': config.AZURE_ACCESS_KEY}

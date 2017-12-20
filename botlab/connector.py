@@ -11,7 +11,12 @@ import json
 import requests
 import botlab.config as config
 from flask import Flask, request
-from botlab.replier import reply
+#from botlab.replier import reply
+from botlab.know_your_client_strategy import KnowYourClientStrategy
+
+def reply(sender, message):
+    strategy = KnowYourClientStrategy()
+    return strategy.reply(sender, message)
 
 app = Flask(__name__)
 
