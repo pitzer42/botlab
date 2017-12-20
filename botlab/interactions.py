@@ -39,6 +39,7 @@ class StrategySelector:
         return answer
 
     def on_postback(self, client_id, payload):
+        print('change interaction strategy ' + payload)
         if payload == 'SUGGESTIONS':
             reply_strategy = suggest_products
         else:
