@@ -7,6 +7,9 @@ from botlab.storage import Storage
 
 class KnowYourClientStrategy:
 
+    def __init__(self):
+        self._answers = []
+
     def next_answer(self):
         if len(self._answers) == 0:
             self._answers = shuffle(CONVERSATION_STARTERS)
