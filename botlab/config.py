@@ -26,7 +26,7 @@ CONVERSATION_STARTERS=['O que você achou do Iphone X?',\
 'Bateu uma fome aqui... alguma sugestão?',\
 'Acho que estou precisando de umas férias.\nQual foi a sua última viagem?',\
 'O que você acha do cenário atual socioeconômico brasileiro?',\
-'Hj eu tô assim: https://scontent.fcpq1-1.fna.fbcdn.net/v/t1.0-9/25498382_2147912955433618_8826704789237580227_n.jpg?oh=2c842e11a51a67ac91b15f4d175de697&oe=5AC71B5D',\
+'Esse é o meu cachorro hahaha\n https://scontent.fcpq1-1.fna.fbcdn.net/v/t1.0-9/25498382_2147912955433618_8826704789237580227_n.jpg?oh=2c842e11a51a67ac91b15f4d175de697&oe=5AC71B5D',\
 'Cachorros ou gatos?',\
 'Bolacha ou biscoito?']
 

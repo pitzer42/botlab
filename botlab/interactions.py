@@ -49,6 +49,5 @@ class StrategySelector:
         return answer
 
     def on_postback(self, client_id, payload):
-        print('******************MUDOU ' + payload)
         self.storage.save_interaction_strategy(client_id, payload)
         return choice(DEFAULT_ANSWERS)
