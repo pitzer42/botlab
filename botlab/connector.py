@@ -27,22 +27,13 @@ def verify_token():
 
 @app.route('/', methods=['POST'])
 def on_message_receive():
-    print('message received')
-    sys.stdout.flush()
-
     data = request.get_json()
     if data['object'] == 'page':
-        print('page')
-        sys.stdout.flush()
         for entry in data['entry']:
             for messaging_event in entry['messaging']:
                 if messaging_event.get('message'):
-                    print('message event')
-                    sys.stdout.flush()
                     handle_message(messaging_event)
                 elif messaging_event.get('postback'):
-                    print('postback event')
-                    sys.stdout.flush()
                     handle_postback(messaging_event)
     return 'ok', 200
 
@@ -55,8 +46,6 @@ def handle_message(event):
 def handle_postback(event):
     sender_id = event['sender']['id']
     payload = event['postback']['payload']
-    print('postback ' + payload)
-    sys.stdout.flush()
     answer = strategy.on_postback(sender_id, payload)
     send_message(sender_id, answer)
 
